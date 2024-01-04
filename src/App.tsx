@@ -1,13 +1,13 @@
-import Button from '@mui/material/Button';
 import './App.css'
-
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import { CurrencyPairSelect } from './components/CurrencyPairSelect';
+import { CurrencyPairForm } from './components/CurrencyPairForm';
+import { Trades } from './components/Trades';
 
 function App() {
   return (
-    <CurrencyPairSelect />
+    <>
+      <CurrencyPairForm />
+      <Trades />
+    </>
   )
 }
 
