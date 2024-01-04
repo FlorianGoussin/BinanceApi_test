@@ -14,9 +14,7 @@ const tickerEndpoint = 'ticker/price';
 const ticker24Endpoint = 'ticker/24hr';
 const tradesEndpoint = 'trades';
 
-const headers = {
-  Accept: 'application/json',
-};
+const headers = { Accept: 'application/json' };
 
 export async function getCurrencyPairs() {
   const { data } = await axios.get<ExchangeInfoResponse>(
@@ -40,8 +38,18 @@ export async function getTicker24(symbol: string) {
 }
 
 export async function getTrades(symbol: string) {
-  const { data } = await axios.get<TradesResponse>(
+  const { data } = await axios.get<TradesResponse[]>(
     `${binanceBaseApiUrl}/${tradesEndpoint}?symbol=${symbol}`, { headers },
   );
-  return data;
+  return data.map((row: TradesResponse) => ({
+    ...row,
+    time: new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    }).format(row.time)
+  }));
 }

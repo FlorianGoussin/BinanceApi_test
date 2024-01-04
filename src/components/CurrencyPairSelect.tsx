@@ -23,7 +23,7 @@ export function CurrencyPairSelect({ setSelected }: CurrencyPairSelectProps) {
 
   async function loadCurrencyPairs() {
     try {
-      const pairs = await getCurrencyPairs()
+      const pairs = await getCurrencyPairs();
       setCurrencyPairs(pairs.map((exchangeInfoSymbol) => ({
         value: exchangeInfoSymbol.symbol,
         label: exchangeInfoSymbol.symbol
