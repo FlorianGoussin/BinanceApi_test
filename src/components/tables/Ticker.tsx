@@ -10,14 +10,16 @@ import { type TickerResponse } from '../../api/binance.d';
 import { CurrencyPairContext } from '../../CurrencyPairContext';
 
 export function Ticker() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tickerData, setTickerData] = useState<TickerResponse[]>();
 
   const { currencyPair } = useContext(CurrencyPairContext);
   useEffect(() => {
     const loadData = async () => {
+      setIsLoading(true);
       setTickerData(await getTicker(currencyPair.label));
+      setIsLoading(false);
     };
-    console.log('currencyPair.label:', currencyPair.label);
     if (currencyPair.label) {
       loadData();
     }
@@ -44,8 +46,10 @@ export function Ticker() {
     data: (tickerData || []) as TickerResponse[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
   });
 
-  if (typeof tickerData === undefined || !tickerData?.length) {
+  if (isLoading) {
     return <div>Loading trading data...</div>
+  } else if (typeof tickerData === undefined || !tickerData?.length) {
+    return <></>;
   }
 
   return (
