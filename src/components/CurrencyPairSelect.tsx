@@ -39,14 +39,13 @@ export function CurrencyPairSelect({ setSelected }: CurrencyPairSelectProps) {
   });
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, maxWidth: 300, flex: 1 }}>
       <FormControl fullWidth>
         <Autocomplete
           id="currency-pair-selector"
           filterOptions={filterOptions}
           disablePortal
           options={currencyPairs}
-          sx={{ width: 300 }}
           renderInput={(params) => (
             <TextField
               {...params}
