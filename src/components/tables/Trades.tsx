@@ -30,7 +30,10 @@ export function Trades() {
       {
         accessorKey: 'price',
         header: 'Price',
-        size: 200,
+        size: 150,
+        Cell: ({ cell }) => (
+          <span>${cell.getValue<number>().toLocaleString()}</span>
+        ),
       },
       {
         accessorKey: 'qty',
@@ -58,7 +61,7 @@ export function Trades() {
       {
         accessorKey: 'isBestMatch',
         header: 'Best match',
-        size: 200,
+        size: 150,
         Cell: ({ cell }) => (
           <span>{cell.getValue<number>().toLocaleString() === 'true' ? 'Yes' : 'No'}</span>
         ),
@@ -70,6 +73,8 @@ export function Trades() {
   const table = useMaterialReactTable({
     columns,
     data: (tradesData || []) as TradesResponse[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+    initialState: { density: 'compact' },
+    enableTopToolbar: false,
   });
 
   if (isLoading) {

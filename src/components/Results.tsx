@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-// import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Trades, Ticker, Ticker24 } from './tables';
 import { CurrencyPairContext } from '../CurrencyPairContext';
@@ -24,7 +23,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ paddingTop: 2 }}>
           {children}
         </Box>
       )}
@@ -51,7 +50,7 @@ export function Results() {
     return (
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example">
+          <Tabs value={tabValue} onChange={handleChange} aria-label="Results tabs">
             <Tab label="Trades" {...a11yProps(0)} />
             <Tab label="Ticker" {...a11yProps(1)} />
             <Tab label="Ticker 24h" {...a11yProps(2)} />

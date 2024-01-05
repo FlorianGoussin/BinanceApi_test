@@ -31,6 +31,8 @@ export function Ticker24() {
   const table = useMaterialReactTable({
     columns,
     data: (ticker24Data || []) as Ticker24Response[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+    initialState: { density: 'compact' },
+    enableTopToolbar: false,
   });
 
   if (isLoading) {

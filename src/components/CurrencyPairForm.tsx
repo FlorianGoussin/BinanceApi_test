@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { CurrencyPairSelect, type CurrencyPair } from './CurrencyPairSelect';
 import { CurrencyPairContext } from '../CurrencyPairContext';
 
@@ -9,7 +10,6 @@ export function CurrencyPairForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(`Form submitted with label:`, selectedCurrencyPair?.label);
 
     // save currency pair inside the context
     setCurrencyPair(selectedCurrencyPair);
@@ -17,8 +17,10 @@ export function CurrencyPairForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <CurrencyPairSelect setSelected={setSelectedCurrencyPair} />
-      <Button variant="contained" type="submit">Submit</Button>
+      <Box sx={{ display: 'flex' }}>
+        <CurrencyPairSelect setSelected={setSelectedCurrencyPair} />
+        <Button variant="contained" type="submit">Submit</Button>
+      </Box>
     </form>
   )
 }

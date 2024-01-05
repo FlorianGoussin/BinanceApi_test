@@ -36,6 +36,9 @@ export function Ticker() {
         accessorKey: 'price',
         header: 'Price',
         size: 200,
+        Cell: ({ cell }) => (
+          <span>${cell.getValue<number>().toLocaleString()}</span>
+        ),
       }
     ],
     [],
@@ -44,6 +47,8 @@ export function Ticker() {
   const table = useMaterialReactTable({
     columns,
     data: (tickerData || []) as TickerResponse[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+    initialState: { density: 'compact' },
+    enableTopToolbar: false,
   });
 
   if (isLoading) {

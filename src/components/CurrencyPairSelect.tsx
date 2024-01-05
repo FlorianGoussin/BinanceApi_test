@@ -51,7 +51,7 @@ export function CurrencyPairSelect({ setSelected }: CurrencyPairSelectProps) {
             <TextField
               {...params}
               label="Choose a currency pair"
-              variant="outlined"
+              variant="filled"
             />
           )}
           onChange={(_e, value) => setSelected(value as string)}

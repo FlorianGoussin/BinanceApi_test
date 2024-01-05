@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { type MRT_ColumnDef } from 'material-react-table';
-import { type Ticker24Response } from '../../../api/binance';
+import { type Ticker24Response } from '../../../api/binance.d';
 
 export function useColumns() {
   return useMemo<MRT_ColumnDef<Ticker24Response>[]>(() => [
@@ -13,6 +13,9 @@ export function useColumns() {
       accessorKey: 'priceChange',
       header: 'Price change',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'priceChangePercent',
@@ -23,16 +26,25 @@ export function useColumns() {
       accessorKey: 'weightedAvgPrice',
       header: 'Weighted average price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'prevClosePrice',
       header: 'Previous close price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'lastPrice',
       header: 'Last price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'lastQty',
@@ -43,6 +55,9 @@ export function useColumns() {
       accessorKey: 'bidPrice',
       header: 'Bid price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'bidQty',
@@ -53,6 +68,9 @@ export function useColumns() {
       accessorKey: 'askPrice',
       header: 'Ask price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'askQty',
@@ -63,16 +81,25 @@ export function useColumns() {
       accessorKey: 'openPrice',
       header: 'Open price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'highPrice',
       header: 'High price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'lowPrice',
       header: 'Low price',
       size: 150,
+      Cell: ({ cell }) => (
+        <span>${cell.getValue<number>().toLocaleString()}</span>
+      ),
     },
     {
       accessorKey: 'volume',
