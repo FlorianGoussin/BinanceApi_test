@@ -1,19 +1,10 @@
 import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import { CurrencyPairSelect, type CurrencyPair } from './CurrencyPairSelect';
-// import type { CurrencyPair } from './CurrencyPairSelect';
-
-import { getTicker, getTicker24, getTrades } from '../api/binance';
-import type { TickerResponse, Ticker24Response, TradesResponse } from '../api/binance.d';
 import { CurrencyPairContext } from '../CurrencyPairContext';
 
 export function CurrencyPairForm() {
   const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<CurrencyPair>();
-  const [tickerData, setTickerData] = useState<TickerResponse>();
-  const [ticker24Data, setTicker24Data] = useState<Ticker24Response>();
-  const [tradesData, setTradesData] = useState<TradesResponse>();
-
-  // const { data, error, isLoading } = useGetTrades(selectedCurrencyPair?.label as string);
   const { setCurrencyPair } = useContext(CurrencyPairContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -22,28 +13,12 @@ export function CurrencyPairForm() {
 
     // save currency pair inside the context
     setCurrencyPair(selectedCurrencyPair);
-
-    // loadPublicMarketData(selectedCurrencyPair?.value as string);
   }
-  // const loadPublicMarketData = async (currencyPair: string) => {
-  //   try {
-  //     setTickerData(await getTicker(currencyPair));
-  //     setTicker24Data(await getTicker24(currencyPair));
-  //     setTradesData(await getTrades(currencyPair));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+
   return (
     <form onSubmit={handleSubmit}>
       <CurrencyPairSelect setSelected={setSelectedCurrencyPair} />
       <Button variant="contained" type="submit">Submit</Button>
-      {/* <div>
-        <h2>DEBUG</h2>
-        <div>Ticker data: {JSON.stringify(tickerData, null, 1)}</div>
-        <div>Ticker 24 data: {JSON.stringify(ticker24Data, null, 1)}</div>
-        <div>Trades data: {JSON.stringify(tradesData, null, 1)}</div>
-      </div> */}
     </form>
   )
 }

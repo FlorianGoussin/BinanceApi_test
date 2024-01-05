@@ -1,7 +1,7 @@
 import './App.css'
 import { useState } from 'react';
 import { CurrencyPairForm } from './components/CurrencyPairForm';
-import { Trades } from './components/Trades';
+import { Trades, Ticker, Ticker24 } from './components/tables';
 import { CurrencyPairContext, CurrencyPairDefaultValue } from './CurrencyPairContext';
 import { type CurrencyPair } from './components/CurrencyPairSelect';
 
@@ -16,6 +16,8 @@ function App() {
   return (
     <CurrencyPairContext.Provider value={CurrencyPairContextValue}>
       <CurrencyPairForm />
+      <Ticker />
+      <Ticker24 />
       <Trades />
     </CurrencyPairContext.Provider>
   )

@@ -5,9 +5,9 @@ import {
   type MRT_ColumnDef,
 } from 'material-react-table';
 
-import { getTrades } from '../api/binance';
-import { type TradesResponse } from '../api/binance.d';
-import { CurrencyPairContext } from '../CurrencyPairContext';
+import { getTrades } from '../../api/binance';
+import { type TradesResponse } from '../../api/binance';
+import { CurrencyPairContext } from '../../CurrencyPairContext';
 
 export function Trades() {
   const [tradesData, setTradesData] = useState<TradesResponse[]>();
