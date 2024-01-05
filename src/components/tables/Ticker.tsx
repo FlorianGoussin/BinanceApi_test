@@ -49,6 +49,7 @@ export function Ticker() {
     data: (tickerData || []) as TickerResponse[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
     initialState: { density: 'compact' },
     enableTopToolbar: false,
+    enableColumnActions: false,
   });
 
   if (isLoading) {

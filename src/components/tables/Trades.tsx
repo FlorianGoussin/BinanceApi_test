@@ -75,6 +75,7 @@ export function Trades() {
     data: (tradesData || []) as TradesResponse[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
     initialState: { density: 'compact' },
     enableTopToolbar: false,
+    enableColumnActions: false,
   });
 
   if (isLoading) {
