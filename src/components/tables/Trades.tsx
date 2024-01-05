@@ -51,11 +51,17 @@ export function Trades() {
         accessorKey: 'isBuyerMaker',
         header: 'Buyer maker',
         size: 150,
+        Cell: ({ cell }) => (
+          <span>{cell.getValue<number>().toLocaleString() === 'true' ? 'Yes' : 'No'}</span>
+        ),
       },
       {
         accessorKey: 'isBestMatch',
         header: 'Best match',
         size: 200,
+        Cell: ({ cell }) => (
+          <span>{cell.getValue<number>().toLocaleString() === 'true' ? 'Yes' : 'No'}</span>
+        ),
       },
     ],
     [],
