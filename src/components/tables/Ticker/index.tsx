@@ -28,7 +28,6 @@ export function Ticker() {
   } else if (typeof tickerData === 'undefined' || !tickerData?.length) {
     return <></>;
   }
-
   return (
     <ResultTable
       columns={columns}

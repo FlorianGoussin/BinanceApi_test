@@ -10,6 +10,7 @@ export function Ticker24() {
   const [ticker24Data, setTicker24Data] = useState<Ticker24Response[]>();
 
   const { currencyPair } = useContext(CurrencyPairContext);
+
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
@@ -28,7 +29,6 @@ export function Ticker24() {
   } else if (typeof ticker24Data === 'undefined' || !ticker24Data?.length) {
     return <></>;
   }
-
   return (
     <ResultTable
       columns={columns}

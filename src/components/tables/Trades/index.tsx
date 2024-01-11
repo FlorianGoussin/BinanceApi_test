@@ -28,7 +28,6 @@ export function Trades() {
   } else if (typeof tradesData === 'undefined' || !tradesData?.length) {
     return <></>;
   }
-
   return (
     <ResultTable
       columns={columns}
