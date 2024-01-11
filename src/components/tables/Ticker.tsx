@@ -6,7 +6,7 @@ import {
 } from 'material-react-table';
 
 import { getTicker } from '../../api/binance';
-import { type TickerResponse } from '../../api/binance.d';
+import { type TickerResponse } from '../../api/binance-types';
 import { CurrencyPairContext } from '../../CurrencyPairContext';
 
 export function Ticker() {
@@ -54,13 +54,11 @@ export function Ticker() {
 
   if (isLoading) {
     return <div>Loading trading data...</div>
-  } else if (typeof tickerData === undefined || !tickerData?.length) {
+  } else if (typeof tickerData === 'undefined' || !tickerData?.length) {
     return <></>;
   }
 
   return (
-    <>
-      <MaterialReactTable table={table} />
-    </>
+    <MaterialReactTable table={table} />
   );
 }

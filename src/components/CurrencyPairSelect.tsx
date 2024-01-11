@@ -8,10 +8,12 @@ import { getCurrencyPairs } from '../api/binance';
 export type CurrencyPair = {
   value?: string,
   label: string
-};
+}
+
+export type SetSelectedFunction = (arg: string) => void;
 
 type CurrencyPairSelectProps = {
-  setSelected: Function
+  setSelected: SetSelectedFunction
 }
 
 export function CurrencyPairSelect({ setSelected }: CurrencyPairSelectProps) {
@@ -31,12 +33,12 @@ export function CurrencyPairSelect({ setSelected }: CurrencyPairSelectProps) {
     } catch (error) {
       console.error('Error: ', error);
     }
-  };
+  }
 
   const filterOptions = createFilterOptions({
     matchFrom: 'any',
     limit: 500,
-  });
+  })
 
   return (
     <Box sx={{ minWidth: 120, maxWidth: 300, flex: 1 }}>

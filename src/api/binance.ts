@@ -4,7 +4,7 @@ import type {
   TickerResponse,
   Ticker24Response,
   TradesResponse
-} from './binance.d';
+} from './binance-types';
 
 const apiVersionUrl = '/api/v3';
 const binanceBaseApiUrl = import.meta.env.VITE_BINANCE_BASE_API_URL + apiVersionUrl;
@@ -30,7 +30,7 @@ export async function getCurrencyPairs() {
     `${binanceBaseApiUrl}/${exchangeInfoEndpoint}`, { headers },
   );
   return data.symbols;
-};
+}
 
 export async function getTicker(symbol: string): Promise<TickerResponse[]> {
   const { data } = await axios.get<TickerResponse | TickerResponse[]>(
@@ -48,10 +48,10 @@ export async function getTicker24(symbol: string): Promise<Ticker24Response[]> {
     `${binanceBaseApiUrl}/${ticker24Endpoint}?symbol=${symbol}`, { headers },
   );
   const data = Array.isArray(response.data) ? response.data : [response.data];
-  return data.map((row: Ticker24Response | any) => ({
+  return data.map((row: Ticker24Response) => ({
     ...row,
-    openTime: new Intl.DateTimeFormat('en-US', timeFormat).format(row.openTime),
-    closeTime: new Intl.DateTimeFormat('en-US', timeFormat).format(row.closeTime)
+    openTime: new Intl.DateTimeFormat('en-US', timeFormat).format(new Date(row.openTime)),
+    closeTime: new Intl.DateTimeFormat('en-US', timeFormat).format(new Date(row.closeTime))
   } as Ticker24Response));
 }
 
@@ -60,8 +60,8 @@ export async function getTrades(symbol: string): Promise<TradesResponse[]> {
     `${binanceBaseApiUrl}/${tradesEndpoint}?symbol=${symbol}`, { headers },
   );
   // Format dates
-  return data.map((row: TradesResponse | any) => ({
+  return data.map((row: TradesResponse) => ({
     ...row,
-    time: new Intl.DateTimeFormat('en-US', timeFormat).format(row.time)
+    time: new Intl.DateTimeFormat('en-US', timeFormat).format(new Date(row.time))
   } as TradesResponse));
 }

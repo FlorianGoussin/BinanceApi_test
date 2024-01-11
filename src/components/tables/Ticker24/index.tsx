@@ -5,7 +5,7 @@ import {
 } from 'material-react-table';
 
 import { getTicker24 } from '../../../api/binance';
-import { type Ticker24Response } from '../../../api/binance.d';
+import { type Ticker24Response } from '../../../api/binance-types';
 import { CurrencyPairContext } from '../../../CurrencyPairContext';
 import { useColumns } from './columns';
 
@@ -38,13 +38,11 @@ export function Ticker24() {
 
   if (isLoading) {
     return <div>Loading trading data...</div>
-  } else if (typeof ticker24Data === undefined || !ticker24Data?.length) {
+  } else if (typeof ticker24Data === 'undefined' || !ticker24Data?.length) {
     return <></>;
   }
 
   return (
-    <>
-      <MaterialReactTable table={table} />
-    </>
+    <MaterialReactTable table={table} />
   );
 }

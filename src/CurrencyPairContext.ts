@@ -1,11 +1,14 @@
 import React from 'react';
-import { type CurrencyPair } from './components/CurrencyPairSelect';
+import {
+  type CurrencyPair,
+  type SetSelectedFunction
+} from './components/CurrencyPairSelect';
 
 export const CurrencyPairDefaultValue = { value: '', label: '' };
 
 export type CurrencyPairContextValueType = {
   currencyPair: CurrencyPair,
-  setCurrencyPair: Function
+  setCurrencyPair: SetSelectedFunction
 }
 export const CurrencyPairContext = React.createContext<CurrencyPairContextValueType>({
   currencyPair: CurrencyPairDefaultValue,
