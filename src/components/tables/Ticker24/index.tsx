@@ -20,7 +20,6 @@ export function Ticker24() {
       setTicker24Data(await getTicker24(currencyPair));
       setIsLoading(false);
     };
-    console.log('currencyPair.label:', currencyPair);
     if (currencyPair) {
       loadData();
     }
