@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { type MRT_ColumnDef } from 'material-react-table';
-import { type Ticker24Response } from '../../../api/binance-types';
+import { type Ticker24Response } from '@/api/binance-types';
 
 export function useColumns() {
   return useMemo<MRT_ColumnDef<Ticker24Response>[]>(() => [

@@ -29,8 +29,8 @@ export type Ticker24Response = {
   lowPrice: string
   volume: string
   quoteVolume: string
-  openTime: number
-  closeTime: number
+  openTime: string
+  closeTime: string
   firstId: number
   lastId: number
   count: number
@@ -41,7 +41,7 @@ export type TradesResponse = {
   price: string
   qty: string
   quoteQty: string
-  time: number
+  time: string
   isBuyerMaker: boolean
   isBestMatch: boolean
 }

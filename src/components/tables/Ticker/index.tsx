@@ -5,9 +5,9 @@ import {
   type MRT_ColumnDef,
 } from 'material-react-table';
 
-import { getTicker } from '../../api/binance';
-import { type TickerResponse } from '../../api/binance-types';
-import { CurrencyPairContext } from '../../CurrencyPairContext';
+import { getTicker } from '@/api/binance';
+import { type TickerResponse } from '@/api/binance-types';
+import { CurrencyPairContext } from '@/CurrencyPairContext';
 
 export function Ticker() {
   const [isLoading, setIsLoading] = useState<boolean>(false);

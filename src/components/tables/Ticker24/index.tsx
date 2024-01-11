@@ -4,9 +4,9 @@ import {
   useMaterialReactTable
 } from 'material-react-table';
 
-import { getTicker24 } from '../../../api/binance';
-import { type Ticker24Response } from '../../../api/binance-types';
-import { CurrencyPairContext } from '../../../CurrencyPairContext';
+import { getTicker24 } from '@/api/binance';
+import { type Ticker24Response } from '@/api/binance-types';
+import { CurrencyPairContext } from '@/CurrencyPairContext';
 import { useColumns } from './columns';
 
 export function Ticker24() {
