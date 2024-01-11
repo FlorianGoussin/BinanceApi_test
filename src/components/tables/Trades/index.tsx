@@ -1,13 +1,13 @@
-import { useMemo, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   MaterialReactTable,
-  useMaterialReactTable,
-  type MRT_ColumnDef,
+  useMaterialReactTable
 } from 'material-react-table';
 
 import { getTrades } from '@/api/binance';
 import { type TradesResponse } from '@/api/binance-types';
 import { CurrencyPairContext } from '@/CurrencyPairContext';
+import { useColumns } from './columns';
 
 export function Trades() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,50 +25,7 @@ export function Trades() {
     }
   }, [currencyPair]);
 
-  const columns = useMemo<MRT_ColumnDef<TradesResponse>[]>(
-    () => [
-      {
-        accessorKey: 'price',
-        header: 'Price',
-        size: 150,
-        Cell: ({ cell }) => (
-          <span>${cell.getValue<number>().toLocaleString()}</span>
-        ),
-      },
-      {
-        accessorKey: 'qty',
-        header: 'Quantity',
-        size: 150,
-      },
-      {
-        accessorKey: 'quoteQty',
-        header: 'Quote quantity',
-        size: 150,
-      },
-      {
-        accessorKey: 'time',
-        header: 'Time',
-        size: 200,
-      },
-      {
-        accessorKey: 'isBuyerMaker',
-        header: 'Buyer maker',
-        size: 150,
-        Cell: ({ cell }) => (
-          <span>{cell.getValue<number>().toLocaleString() === 'true' ? 'Yes' : 'No'}</span>
-        ),
-      },
-      {
-        accessorKey: 'isBestMatch',
-        header: 'Best match',
-        size: 150,
-        Cell: ({ cell }) => (
-          <span>{cell.getValue<number>().toLocaleString() === 'true' ? 'Yes' : 'No'}</span>
-        ),
-      },
-    ],
-    [],
-  );
+  const columns = useColumns();
 
   const table = useMaterialReactTable({
     columns,

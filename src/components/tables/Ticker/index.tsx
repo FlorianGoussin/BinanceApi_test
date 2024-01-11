@@ -1,13 +1,13 @@
-import { useMemo, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   MaterialReactTable,
-  useMaterialReactTable,
-  type MRT_ColumnDef,
+  useMaterialReactTable
 } from 'material-react-table';
 
 import { getTicker } from '@/api/binance';
 import { type TickerResponse } from '@/api/binance-types';
 import { CurrencyPairContext } from '@/CurrencyPairContext';
+import { useColumns } from './columns';
 
 export function Ticker() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,24 +25,7 @@ export function Ticker() {
     }
   }, [currencyPair]);
 
-  const columns = useMemo<MRT_ColumnDef<TickerResponse>[]>(
-    () => [
-      {
-        accessorKey: 'symbol',
-        header: 'Symbol',
-        size: 150,
-      },
-      {
-        accessorKey: 'price',
-        header: 'Price',
-        size: 200,
-        Cell: ({ cell }) => (
-          <span>${cell.getValue<number>().toLocaleString()}</span>
-        ),
-      }
-    ],
-    [],
-  );
+  const columns = useColumns();
 
   const table = useMaterialReactTable({
     columns,
