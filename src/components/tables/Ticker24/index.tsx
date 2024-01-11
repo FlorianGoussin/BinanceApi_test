@@ -17,11 +17,11 @@ export function Ticker24() {
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
-      setTicker24Data(await getTicker24(currencyPair.label));
+      setTicker24Data(await getTicker24(currencyPair));
       setIsLoading(false);
     };
-    console.log('currencyPair.label:', currencyPair.label);
-    if (currencyPair.label) {
+    console.log('currencyPair.label:', currencyPair);
+    if (currencyPair) {
       loadData();
     }
   }, [currencyPair]);

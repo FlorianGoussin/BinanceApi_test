@@ -17,10 +17,10 @@ export function Ticker() {
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
-      setTickerData(await getTicker(currencyPair.label));
+      setTickerData(await getTicker(currencyPair));
       setIsLoading(false);
     };
-    if (currencyPair.label) {
+    if (currencyPair) {
       loadData();
     }
   }, [currencyPair]);

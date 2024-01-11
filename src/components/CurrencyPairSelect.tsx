@@ -5,11 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { getCurrencyPairs } from '../api/binance';
 
-export type CurrencyPair = {
-  value?: string,
-  label: string
-}
-
+export type CurrencyPair = string;
 export type SetSelectedFunction = (arg: string) => void;
 
 type CurrencyPairSelectProps = {
@@ -26,10 +22,7 @@ export function CurrencyPairSelect({ setSelected }: CurrencyPairSelectProps) {
   async function loadCurrencyPairs() {
     try {
       const pairs = await getCurrencyPairs();
-      setCurrencyPairs(pairs.map((exchangeInfoSymbol) => ({
-        value: exchangeInfoSymbol.symbol,
-        label: exchangeInfoSymbol.symbol
-      })));
+      setCurrencyPairs(pairs.map((exchangeInfoSymbol) => exchangeInfoSymbol.symbol));
     } catch (error) {
       console.error('Error: ', error);
     }

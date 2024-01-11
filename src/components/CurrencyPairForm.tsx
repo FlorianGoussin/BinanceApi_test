@@ -5,7 +5,7 @@ import { CurrencyPairSelect, type CurrencyPair } from './CurrencyPairSelect';
 import { CurrencyPairContext } from '../CurrencyPairContext';
 
 export function CurrencyPairForm() {
-  const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<CurrencyPair>();
+  const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<CurrencyPair>('');
   const { setCurrencyPair } = useContext(CurrencyPairContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
