@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { getCurrencyPairs } from '../api/binance';
+import { getCurrencyPairs } from '@/api/binance';
 
 export type CurrencyPair = string;
 export type SetSelectedFunction = (arg: string) => void;

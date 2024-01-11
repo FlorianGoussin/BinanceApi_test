@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { CurrencyPairSelect, type CurrencyPair } from './CurrencyPairSelect';
-import { CurrencyPairContext } from '../CurrencyPairContext';
+import { CurrencyPairContext } from '@/CurrencyPairContext';
 
 export function CurrencyPairForm() {
   const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<CurrencyPair>('');

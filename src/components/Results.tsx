@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Trades, Ticker, Ticker24 } from './tables';
-import { CurrencyPairContext } from '../CurrencyPairContext';
+import { CurrencyPairContext } from '@/CurrencyPairContext';
 
 interface TabPanelProps {
   children?: React.ReactNode;
