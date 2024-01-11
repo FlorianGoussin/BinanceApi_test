@@ -1,13 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import {
-  MaterialReactTable,
-  useMaterialReactTable
-} from 'material-react-table';
-
 import { getTicker24 } from '@/api/binance';
 import { type Ticker24Response } from '@/api/binance-types';
 import { CurrencyPairContext } from '@/CurrencyPairContext';
 import { useColumns } from './columns';
+import { ResultTable } from '../ResultTable';
 
 export function Ticker24() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,14 +23,6 @@ export function Ticker24() {
 
   const columns = useColumns();
 
-  const table = useMaterialReactTable({
-    columns,
-    data: (ticker24Data || []) as Ticker24Response[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
-    initialState: { density: 'compact' },
-    enableTopToolbar: false,
-    enableColumnActions: false,
-  });
-
   if (isLoading) {
     return <div>Loading trading data...</div>
   } else if (typeof ticker24Data === 'undefined' || !ticker24Data?.length) {
@@ -42,6 +30,9 @@ export function Ticker24() {
   }
 
   return (
-    <MaterialReactTable table={table} />
+    <ResultTable
+      columns={columns}
+      data={ticker24Data}
+    />
   );
 }

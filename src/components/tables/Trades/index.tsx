@@ -1,13 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import {
-  MaterialReactTable,
-  useMaterialReactTable
-} from 'material-react-table';
-
 import { getTrades } from '@/api/binance';
 import { type TradesResponse } from '@/api/binance-types';
 import { CurrencyPairContext } from '@/CurrencyPairContext';
 import { useColumns } from './columns';
+import { ResultTable } from '../ResultTable';
 
 export function Trades() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,14 +23,6 @@ export function Trades() {
 
   const columns = useColumns();
 
-  const table = useMaterialReactTable({
-    columns,
-    data: (tradesData || []) as TradesResponse[], //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
-    initialState: { density: 'compact' },
-    enableTopToolbar: false,
-    enableColumnActions: false,
-  });
-
   if (isLoading) {
     return <div>Loading trading data...</div>
   } else if (typeof tradesData === 'undefined' || !tradesData?.length) {
@@ -42,6 +30,9 @@ export function Trades() {
   }
 
   return (
-    <MaterialReactTable table={table} />
-  );
+    <ResultTable
+      columns={columns}
+      data={tradesData}
+    />
+  )
 }
