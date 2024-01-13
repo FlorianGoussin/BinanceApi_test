@@ -1,7 +1,7 @@
 import {
-  type Ticker24Response,
+  type Ticker24Response
   // type TradesResponse
-} from '../binance-types';
+} from '../binance-types'
 
 export const ticker24_data1: Ticker24Response = {
   symbol: 'symbol1',

@@ -1,6 +1,6 @@
 type ExchangeInfoSymbol = {
-  status: string,
-  symbol: string,
+  status: string
+  symbol: string
 }
 
 export type ExchangeInfoResponse = {
@@ -8,7 +8,7 @@ export type ExchangeInfoResponse = {
 }
 
 export type TickerResponse = {
-  symbol: string,
+  symbol: string
   price: string
 }
 

@@ -1,3 +1,3 @@
-export { Trades } from "./Trades";
-export { Ticker } from './Ticker';
-export { Ticker24 } from './Ticker24';
+export { Trades } from './Trades'
+export { Ticker } from './Ticker'
+export { Ticker24 } from './Ticker24'

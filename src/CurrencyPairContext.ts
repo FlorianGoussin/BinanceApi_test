@@ -1,14 +1,15 @@
-import React from 'react';
+import React from 'react'
 import {
   type CurrencyPair,
   type SetSelectedFunction
-} from './components/CurrencyPairSelect';
+} from './components/CurrencyPairSelect'
 
 export type CurrencyPairContextValueType = {
-  currencyPair: CurrencyPair,
+  currencyPair: CurrencyPair
   setCurrencyPair: SetSelectedFunction
 }
-export const CurrencyPairContext = React.createContext<CurrencyPairContextValueType>({
-  currencyPair: '',
-  setCurrencyPair: () => { }
-});
+export const CurrencyPairContext =
+  React.createContext<CurrencyPairContextValueType>({
+    currencyPair: '',
+    setCurrencyPair: () => {}
+  })
