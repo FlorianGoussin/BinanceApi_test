@@ -5,15 +5,14 @@ import type {
   Ticker24Response,
   TradesResponse
 } from './binance-types'
+const baseUrl = import.meta.env.VITE_BINANCE_BASE_API_URL
 
-const apiVersionUrl = '/api/v3'
-const binanceBaseApiUrl =
-  import.meta.env.VITE_BINANCE_BASE_API_URL + apiVersionUrl
-
-const exchangeInfoEndpoint = 'exchangeInfo'
-const tickerEndpoint = 'ticker/price'
-const ticker24Endpoint = 'ticker/24hr'
-const tradesEndpoint = 'trades'
+export const apiVersionUrl = '/api/v3'
+export const binanceBaseApiUrl = baseUrl + apiVersionUrl
+export const exchangeInfoEndpoint = 'exchangeInfo'
+export const tickerEndpoint = 'ticker/price'
+export const ticker24Endpoint = 'ticker/24hr'
+export const tradesEndpoint = 'trades'
 
 const headers = { Accept: 'application/json' }
 
