@@ -45,7 +45,8 @@ describe('Binance API tests', () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: [ticker_data1, ticker_data2]
       })
-      const data = await getTicker(fakeUrl)
+      const symbol = 'ETHBTC'
+      const data = await getTicker(symbol)
       expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(data[0]).toEqual(
         expect.objectContaining({
@@ -67,6 +68,15 @@ describe('Binance API tests', () => {
         }
       )
     })
+
+    it('Should return an empty array if no data was recieved', async () => {
+      const symbol = 'ETHBTC'
+      const data = await getTicker(symbol)
+      mockedAxios.get.mockResolvedValueOnce({ data: null })
+  
+      expect(mockedAxios.get).toBeCalledTimes(1)
+      expect(Array.isArray(data)).toBeTruthy
+    })
   })
 
   describe('getTicker24', () => {
@@ -74,7 +84,8 @@ describe('Binance API tests', () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: [ticker24_data1, ticker24_data2]
       })
-      const data = await getTicker24(fakeUrl)
+      const symbol = 'ETHBTC'
+      const data = await getTicker24(symbol)
       expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(data[0]).toEqual(
         expect.objectContaining({
@@ -96,6 +107,15 @@ describe('Binance API tests', () => {
         }
       )
     })
+
+    it('Should return an empty array if no data was recieved', async () => {
+      const symbol = 'ETHBTC'
+      const data = await getTrades(symbol)
+      mockedAxios.get.mockResolvedValueOnce({ data: null })
+  
+      expect(mockedAxios.get).toBeCalledTimes(1)
+      expect(Array.isArray(data)).toBeTruthy
+    })
   })
 
   describe('getTrades', () => {
@@ -103,7 +123,8 @@ describe('Binance API tests', () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: [trades_data1, trades_data2]
       })
-      const data = await getTrades(fakeUrl)
+      const symbol = 'ETHBTC'
+      const data = await getTrades(symbol)
       expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(data[0]).toEqual(
         expect.objectContaining({
@@ -124,6 +145,15 @@ describe('Binance API tests', () => {
           headers
         }
       )
+    })
+
+    it('Should return an empty array if no data was recieved', async () => {
+      const symbol = 'ETHBTC'
+      const data = await getTrades(symbol)
+      mockedAxios.get.mockResolvedValueOnce({ data: null })
+  
+      expect(mockedAxios.get).toBeCalledTimes(1)
+      expect(Array.isArray(data)).toBeTruthy
     })
   })
 })

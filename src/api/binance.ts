@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type {
+  ExchangeInfoSymbol,
   ExchangeInfoResponse,
   TickerResponse,
   Ticker24Response,
@@ -25,59 +26,79 @@ const timeFormat: Intl.DateTimeFormatOptions = {
   second: '2-digit'
 }
 
-export async function getCurrencyPairs() {
-  const { data } = await axios.get<ExchangeInfoResponse>(
-    `${binanceBaseApiUrl}/${exchangeInfoEndpoint}`,
-    { headers }
-  )
-  return data.symbols
+export async function getCurrencyPairs(): Promise<ExchangeInfoSymbol[]> {
+  try {
+    const { data } = await axios.get<ExchangeInfoResponse>(
+      `${binanceBaseApiUrl}/${exchangeInfoEndpoint}`,
+      { headers }
+    )
+    return data.symbols
+  } catch(error) {
+    console.error(error)
+    return []
+  }
 }
 
 export async function getTicker(symbol: string): Promise<TickerResponse[]> {
-  const { data } = await axios.get<TickerResponse | TickerResponse[]>(
-    `${binanceBaseApiUrl}/${tickerEndpoint}?symbol=${symbol}`,
-    { headers }
-  )
-  // Make sure we get an array is returned
-  if (Array.isArray(data)) {
-    return data
+  try {
+    const { data } = await axios.get<TickerResponse | TickerResponse[]>(
+      `${binanceBaseApiUrl}/${tickerEndpoint}?symbol=${symbol}`,
+      { headers }
+    )
+    // Make sure we get an array is returned
+    if (Array.isArray(data)) {
+      return data
+    }
+    return [data]
+  } catch(error) {
+    console.error(error)
+    return []
   }
-  return [data]
 }
 
 export async function getTicker24(symbol: string): Promise<Ticker24Response[]> {
-  const response = await axios.get<Ticker24Response | Ticker24Response[]>(
-    `${binanceBaseApiUrl}/${ticker24Endpoint}?symbol=${symbol}`,
-    { headers }
-  )
-  const data = Array.isArray(response.data) ? response.data : [response.data]
-  return data.map(
-    (row: Ticker24Response) =>
-      ({
-        ...row,
-        openTime: new Intl.DateTimeFormat('en-US', timeFormat).format(
-          new Date(row.openTime)
-        ),
-        closeTime: new Intl.DateTimeFormat('en-US', timeFormat).format(
-          new Date(row.closeTime)
-        )
-      }) as Ticker24Response
-  )
+  try {
+    const response = await axios.get<Ticker24Response | Ticker24Response[]>(
+      `${binanceBaseApiUrl}/${ticker24Endpoint}?symbol=${symbol}`,
+      { headers }
+    )
+    const data = Array.isArray(response.data) ? response.data : [response.data]
+    return data.map(
+      (row: Ticker24Response) =>
+        ({
+          ...row,
+          openTime: new Intl.DateTimeFormat('en-US', timeFormat).format(
+            new Date(row.openTime)
+          ),
+          closeTime: new Intl.DateTimeFormat('en-US', timeFormat).format(
+            new Date(row.closeTime)
+          )
+        }) as Ticker24Response
+    )
+  } catch(error) {
+    console.error(error)
+    return []
+  }
 }
 
 export async function getTrades(symbol: string): Promise<TradesResponse[]> {
-  const { data } = await axios.get<TradesResponse[]>(
-    `${binanceBaseApiUrl}/${tradesEndpoint}?symbol=${symbol}`,
-    { headers }
-  )
-  // Format dates
-  return data.map(
-    (row: TradesResponse) =>
-      ({
-        ...row,
-        time: new Intl.DateTimeFormat('en-US', timeFormat).format(
-          new Date(row.time)
-        )
-      }) as TradesResponse
-  )
+  try {
+    const { data } = await axios.get<TradesResponse[]>(
+      `${binanceBaseApiUrl}/${tradesEndpoint}?symbol=${symbol}`,
+      { headers }
+    )
+    // Format dates
+    return data.map(
+      (row: TradesResponse) =>
+        ({
+          ...row,
+          time: new Intl.DateTimeFormat('en-US', timeFormat).format(
+            new Date(row.time)
+          )
+        }) as TradesResponse
+    )
+  } catch(error) {
+    console.error(error)
+    return []
+  }
 }

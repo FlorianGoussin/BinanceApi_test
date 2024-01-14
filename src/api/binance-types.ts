@@ -1,4 +1,4 @@
-type ExchangeInfoSymbol = {
+export type ExchangeInfoSymbol = {
   status: string
   symbol: string
 }
