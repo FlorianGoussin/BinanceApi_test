@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, it, expect, describe, vi, Mocked, beforeAll, MockInstance } from 'vitest'
+import { it, expect, describe, vi, Mocked, MockInstance } from 'vitest'
 import axios from 'axios'
 import {
   getTicker,
