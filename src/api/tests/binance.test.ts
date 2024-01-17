@@ -25,17 +25,8 @@ vi.mock('axios')
 const mockedAxios = axios as Mocked<typeof axios>
 const symbol = 'ETHBTC'
 let mockedConsoleError: MockInstance
-// mockedConsoleError = vi.spyOn(console, 'error')
 
 describe('Binance API tests', () => {
-  afterEach(() => {
-    vi.restoreAllMocks()
-  })
-
-  beforeEach(() => {
-    mockedAxios.get.mockReset()
-  })
-
   it('should be included apiVersionUrl in binanceBaseApiUrl', () => {
     expect(binanceBaseApiUrl).toEqual(baseUrl + apiVersionUrl)
   })
