@@ -45,11 +45,12 @@ export async function getTicker(symbol: string): Promise<TickerResponse[]> {
       `${binanceBaseApiUrl}/${tickerEndpoint}?symbol=${symbol}`,
       { headers }
     )
-    // Make sure we get an array is returned
-    if (Array.isArray(data)) {
-      return data
+    if (data == null) { // null|undefined
+      return []
+    } else if (!Array.isArray(data) || !data.length) {
+      return [data] as TickerResponse[]
     }
-    return [data]
+    return data
   } catch(error) {
     console.error(error)
     return []
@@ -62,6 +63,9 @@ export async function getTicker24(symbol: string): Promise<Ticker24Response[]> {
       `${binanceBaseApiUrl}/${ticker24Endpoint}?symbol=${symbol}`,
       { headers }
     )
+    if (response.data == null) { // null|undefined
+      return []
+    }
     const data = Array.isArray(response.data) ? response.data : [response.data]
     return data.map(
       (row: Ticker24Response) =>
@@ -83,12 +87,15 @@ export async function getTicker24(symbol: string): Promise<Ticker24Response[]> {
 
 export async function getTrades(symbol: string): Promise<TradesResponse[]> {
   try {
-    const { data } = await axios.get<TradesResponse[]>(
+    const response = await axios.get<TradesResponse[]>(
       `${binanceBaseApiUrl}/${tradesEndpoint}?symbol=${symbol}`,
       { headers }
     )
+    if (response.data == null) { // null|undefined
+      return []
+    }
     // Format dates
-    return data.map(
+    return response.data.map(
       (row: TradesResponse) =>
         ({
           ...row,

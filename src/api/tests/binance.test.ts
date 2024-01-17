@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, it, expect, describe, vi, Mocked } from 'vitest'
+import { afterEach, beforeEach, it, expect, describe, vi, Mocked, beforeAll, MockInstance } from 'vitest'
 import axios from 'axios'
 import {
   getTicker,
@@ -21,10 +21,11 @@ import {
 
 const baseUrl = import.meta.env.VITE_BINANCE_BASE_API_URL
 const headers = { Accept: 'application/json' }
-const fakeUrl = 'https://fakeapi.com'
 vi.mock('axios')
 const mockedAxios = axios as Mocked<typeof axios>
-const mockedConsole = vi.spyOn(global.console, 'error')
+const symbol = 'ETHBTC'
+let mockedConsoleError: MockInstance
+// mockedConsoleError = vi.spyOn(console, 'error')
 
 describe('Binance API tests', () => {
   afterEach(() => {
@@ -33,7 +34,6 @@ describe('Binance API tests', () => {
 
   beforeEach(() => {
     mockedAxios.get.mockReset()
-    mockedConsole.mockReset()
   })
 
   it('should be included apiVersionUrl in binanceBaseApiUrl', () => {
@@ -45,7 +45,6 @@ describe('Binance API tests', () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: [ticker_data1, ticker_data2]
       })
-      const symbol = 'ETHBTC'
       const data = await getTicker(symbol)
       expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(data[0]).toEqual(
@@ -56,7 +55,6 @@ describe('Binance API tests', () => {
     })
 
     it('should get data using the symbol parameter', async () => {
-      const symbol = 'ETHBTC'
       mockedAxios.get.mockResolvedValueOnce({ data: [ticker_data1] })
       await getTicker(symbol)
 
@@ -70,12 +68,22 @@ describe('Binance API tests', () => {
     })
 
     it('Should return an empty array if no data was recieved', async () => {
-      const symbol = 'ETHBTC'
       const data = await getTicker(symbol)
       mockedAxios.get.mockResolvedValueOnce({ data: null })
   
-      expect(mockedAxios.get).toBeCalledTimes(1)
+      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(Array.isArray(data)).toBeTruthy
+    })
+
+    it('Should log an error if the request was unsuccessful', async () => {
+      mockedConsoleError = vi.spyOn(console, 'error')
+      const error = new Error('There was an error')
+      mockedAxios.get.mockRejectedValue(error)
+      await getTicker(symbol)
+      
+      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
+      expect(mockedConsoleError).toHaveBeenCalledTimes(1)
+      expect(mockedConsoleError).toBeCalledWith(error)
     })
   })
 
@@ -84,7 +92,6 @@ describe('Binance API tests', () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: [ticker24_data1, ticker24_data2]
       })
-      const symbol = 'ETHBTC'
       const data = await getTicker24(symbol)
       expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(data[0]).toEqual(
@@ -95,7 +102,6 @@ describe('Binance API tests', () => {
     })
 
     it('should get data using the symbol parameter', async () => {
-      const symbol = 'ETHBTC'
       mockedAxios.get.mockResolvedValueOnce({ data: ticker24_data2 })
       await getTicker24(symbol)
 
@@ -109,12 +115,22 @@ describe('Binance API tests', () => {
     })
 
     it('Should return an empty array if no data was recieved', async () => {
-      const symbol = 'ETHBTC'
-      const data = await getTrades(symbol)
+      const data = await getTicker24(symbol)
       mockedAxios.get.mockResolvedValueOnce({ data: null })
   
-      expect(mockedAxios.get).toBeCalledTimes(1)
+      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(Array.isArray(data)).toBeTruthy
+    })
+
+    it('Should log an error if the request was unsuccessful', async () => {
+      mockedConsoleError = vi.spyOn(console, 'error')
+      const error = new Error('There was an error')
+      mockedAxios.get.mockRejectedValue(error)
+      await getTicker24(symbol)
+      
+      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
+      expect(mockedConsoleError).toHaveBeenCalledTimes(1)
+      expect(mockedConsoleError).toBeCalledWith(error)
     })
   })
 
@@ -123,7 +139,6 @@ describe('Binance API tests', () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: [trades_data1, trades_data2]
       })
-      const symbol = 'ETHBTC'
       const data = await getTrades(symbol)
       expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(data[0]).toEqual(
@@ -134,10 +149,8 @@ describe('Binance API tests', () => {
     })
 
     it('should get data using the symbol parameter', async () => {
-      const symbol = 'ETHBTC'
       mockedAxios.get.mockResolvedValueOnce({ data: [trades_data1] })
       await getTrades(symbol)
-
       expect(mockedAxios.get).toHaveBeenCalled()
       expect(mockedAxios.get).toBeCalledWith(
         `${binanceBaseApiUrl}/${tradesEndpoint}?symbol=${symbol}`,
@@ -148,12 +161,21 @@ describe('Binance API tests', () => {
     })
 
     it('Should return an empty array if no data was recieved', async () => {
-      const symbol = 'ETHBTC'
       const data = await getTrades(symbol)
       mockedAxios.get.mockResolvedValueOnce({ data: null })
-  
-      expect(mockedAxios.get).toBeCalledTimes(1)
+      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
       expect(Array.isArray(data)).toBeTruthy
+    })
+
+    it('Should log an error if the request was unsuccessful', async () => {
+      mockedConsoleError = vi.spyOn(console, 'error')
+      const error = new Error('There was an error')
+      mockedAxios.get.mockRejectedValue(error)
+      await getTrades(symbol)
+      
+      expect(mockedAxios.get).toHaveBeenCalledTimes(1)
+      expect(mockedConsoleError).toHaveBeenCalledTimes(1)
+      expect(mockedConsoleError).toBeCalledWith(error)
     })
   })
 })
